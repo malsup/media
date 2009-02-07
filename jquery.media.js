@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  * @author: M. Alsup
- * @version: 0.84 (12/01/2008)
+ * @version: 0.85 (07-FEB-2009)
  * @requires jQuery v1.1.2 or later
  * $Id: jquery.media.js 2460 2007-07-23 02:53:15Z malsup $
  *
@@ -158,7 +158,7 @@ $.fn.media.defaults.players = {
     },
     winmedia: {
         name:         'winmedia',
-        types:        'asf,avi,wma,wmv',
+        types:        'asx,asf,avi,wma,wmv',
         autoplayAttr: 'autostart',
         oUrl:         'url',
         oAttrs:   {
