@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  * @author: M. Alsup
- * @version: 0.85 (07-FEB-2009)
+ * @version: 0.86 (18-MAR-2009)
  * @requires jQuery v1.1.2 or later
  * $Id: jquery.media.js 2460 2007-07-23 02:53:15Z malsup $
  *
@@ -48,14 +48,15 @@ $.fn.media = function(options, f1, f2) {
         var o = getSettings(this, options);
         // pre-conversion callback, passes original element and fully populated options
         if (typeof f1 == 'function') f1(this, o);
-        
+
         var r = getTypesRegExp();
         var m = r.exec(o.src) || [''];
+
         o.type ? m[0] = o.type : m.shift();
         for (var i=0; i < m.length; i++) {
             fn = m[i].toLowerCase();
             if (isDigit(fn[0])) fn = 'fn' + fn; // fns can't begin with numbers
-            if (!$.fn.media[fn]) 
+            if (!$.fn.media[fn])
                 continue;  // unrecognized media type
             // normalize autoplay settings
             var player = $.fn.media[fn+'_player'];
@@ -100,11 +101,11 @@ $.fn.media.defaults = {
     flashvars:     {},        // added to flash content as flashvars param/attr
     flashVersion:  '7',       // required flash version
     expressInstaller: null,   // src for express installer
-    
+
     // default flash video and mp3 player (@see: http://jeroenwijering.com/?item=Flash_Media_Player)
     flvPlayer:     'mediaplayer.swf',
     mp3Player:     'mediaplayer.swf',
-    
+
     // @see http://msdn2.microsoft.com/en-us/library/bb412401.aspx
     silverlight: {
         inplaceInstallPrompt: 'true', // display in-place install prompt?
@@ -131,7 +132,7 @@ $.fn.media.defaults.players = {
         eAttrs: {
             type:         'application/x-shockwave-flash',
             pluginspage:  'http://www.adobe.com/go/getflashplayer'
-        }        
+        }
     },
     quicktime: {
         name:         'quicktime',
@@ -168,7 +169,7 @@ $.fn.media.defaults.players = {
         eAttrs: {
             type:         $.browser.mozilla && isFirefoxWMPPluginInstalled() ? 'application/x-ms-wmp' : 'application/x-mplayer2',
             pluginspage:  'http://www.microsoft.com/Windows/MediaPlayer/'
-        }        
+        }
     },
     // special cases
     iframe: {
@@ -215,7 +216,7 @@ function getTypesRegExp() {
         if (types.length) types += ',';
         types += $.fn.media.defaults.players[player].types;
     };
-    return new RegExp('\\.(' + types.replace(/,/g,'|') + ')$\\b');
+    return new RegExp('\\.(' + types.replace(/,/ig,'|') + ')$\\b');
 };
 
 function getGenerator(player) {
@@ -238,7 +239,7 @@ function getSettings(el, options) {
     meta = meta || {};
     var w = meta.width  || parseInt(((cls.match(/w:(\d+)/)||[])[1]||0));
     var h = meta.height || parseInt(((cls.match(/h:(\d+)/)||[])[1]||0));
-   
+
     if (w) meta.width  = w;
     if (h) meta.height = h;
     if (cls) meta.cls = cls;
@@ -288,14 +289,14 @@ $.fn.media.swf = function(el, opts) {
         if (!el.id) el.id = 'movie_player_' + counter++;
 
         // replace el with swfobject content
-        swfobject.embedSWF(opts.src, el.id, opts.width, opts.height, opts.flashVersion, 
+        swfobject.embedSWF(opts.src, el.id, opts.width, opts.height, opts.flashVersion,
             opts.expressInstaller, opts.flashvars, opts.params, opts.attrs);
     }
     // swfobject < v2
     else {
         $(el).after($div).remove();
         var so = new SWFObject(opts.src, 'movie_player_' + counter++, opts.width, opts.height, opts.flashVersion, opts.bgColor);
-        if (opts.expressInstaller) so.useExpressInstall(opts.expressInstaller);    
+        if (opts.expressInstaller) so.useExpressInstall(opts.expressInstaller);
 
         for (var p in opts.params)
             if (p != 'bgColor') so.addParam(p, opts.params[p]);
@@ -353,7 +354,7 @@ $.fn.media.xaml = function(el, opts) {
     var cls = opts.cls ? (' class="' + opts.cls + '"') : '';
     var $div = $('<div' + id1 + cls + '>');
     $(el).after($div).remove();
-    
+
     Sys.Silverlight.createObjectEx({
         source: opts.src,
         initParams: opts.silverlight.initParams,
@@ -374,7 +375,7 @@ $.fn.media.xaml = function(el, opts) {
 function generate(el, opts, player) {
     var $el = $(el);
     var o = $.fn.media.defaults.players[player];
-    
+
     if (player == 'iframe') {
         var o = $('<iframe' + ' width="' + opts.width + '" height="' + opts.height + '" >');
         o.attr('src', opts.src);
