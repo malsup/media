@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  * @author: M. Alsup
- * @version: 0.86 (18-MAR-2009)
+ * @version: 0.87 (18-MAR-2009)
  * @requires jQuery v1.1.2 or later
  * $Id: jquery.media.js 2460 2007-07-23 02:53:15Z malsup $
  *
@@ -28,6 +28,7 @@
  *
  * Thanks to Mark Hicken and Brent Pedersen for helping me debug this on the Mac!
  * Thanks to Dan Rossi for numerous bug reports and code bits!
+ * Thanks to Skye Giordano for several great suggestions!
  */
 ;(function($) {
 
@@ -50,7 +51,7 @@ $.fn.media = function(options, f1, f2) {
         if (typeof f1 == 'function') f1(this, o);
 
         var r = getTypesRegExp();
-        var m = r.exec(o.src) || [''];
+        var m = r.exec(o.src.toLowerCase()) || [''];
 
         o.type ? m[0] = o.type : m.shift();
         for (var i=0; i < m.length; i++) {
