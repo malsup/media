@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  * @author: M. Alsup
- * @version: 0.87 (18-MAR-2009)
+ * @version: 0.88 (26-MAR-2009)
  * @requires jQuery v1.1.2 or later
  * $Id: jquery.media.js 2460 2007-07-23 02:53:15Z malsup $
  *
@@ -217,7 +217,7 @@ function getTypesRegExp() {
         if (types.length) types += ',';
         types += $.fn.media.defaults.players[player].types;
     };
-    return new RegExp('\\.(' + types.replace(/,/ig,'|') + ')$\\b');
+    return new RegExp('\\.(' + types.replace(/,/ig,'|') + ')\\b');
 };
 
 function getGenerator(player) {
