@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  * @author: M. Alsup
- * @version: 0.88 (26-MAR-2009)
+ * @version: 0.89 (30-MAR-2009)
  * @requires jQuery v1.1.2 or later
  * $Id: jquery.media.js 2460 2007-07-23 02:53:15Z malsup $
  *
@@ -407,9 +407,11 @@ function generate(el, opts, player) {
             a.push(key + '="'+opts.attrs[key]+'" ');
         for (var key in o.eAttrs || {})
             a.push(key + '="'+o.eAttrs[key]+'" ');
-        for (var key in opts.params)
-            if (key != 'wmode') // FF3/Quicktime borks on wmode
-                a.push(key + '="'+opts.params[key]+'" ');
+        for (var key in opts.params) {
+            if (key == 'wmode' && player != 'flash') // FF3/Quicktime borks on wmode
+            	continue;
+            a.push(key + '="'+opts.params[key]+'" ');
+        }
         a.push('></em'+'bed'+'>');
     }
     // convert element to div
