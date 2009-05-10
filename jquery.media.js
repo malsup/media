@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  * @author: M. Alsup
- * @version: 0.89 (30-MAR-2009)
+ * @version: 0.90 (10-MAY-2009)
  * @requires jQuery v1.1.2 or later
  * $Id: jquery.media.js 2460 2007-07-23 02:53:15Z malsup $
  *
@@ -388,7 +388,7 @@ function generate(el, opts, player) {
             a.push(key + '="'+opts.attrs[key]+'" ');
         for (var key in o.oAttrs || {}) {
             var v = o.oAttrs[key];
-            if (key == 'codebase' && window.location.protocol == 'https')
+            if (key == 'codebase' && window.location.protocol == 'https:')
                 v = v.replace('http','https');
             a.push(key + '="'+v+'" ');
         }
