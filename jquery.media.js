@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  * @author: M. Alsup
- * @version: 0.94 (21-MAR-2011)
+ * @version: 0.95 (23-MAR-2011)
  * @requires jQuery v1.1.2 or later
  * $Id: jquery.media.js 2460 2007-07-23 02:53:15Z malsup $
  *
@@ -266,6 +266,17 @@ function getSettings(el, options) {
 	if (w) meta.width	= w;
 	if (h) meta.height = h;
 	if (cls) meta.cls = cls;
+	
+	// crank html5 style data attributes
+	var dataName = 'data-';
+    for (var i=0; i < el.attributes.length; i++) {
+        var a = el.attributes[i], n = $.trim(a.name);
+        var index = n.indexOf(dataName);
+        if (index === 0) {
+        	n = n.substring(dataName.length);
+        	meta[n] = a.value;
+        }
+    }
 
 	var a = $.fn.media.defaults;
 	var b = options;
