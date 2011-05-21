@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  * @author: M. Alsup
- * @version: 0.96 (23-MAR-2011)
+ * @version: 0.97 (20-MAY-2011)
  * @requires jQuery v1.1.2 or later
  * $Id: jquery.media.js 2460 2007-07-23 02:53:15Z malsup $
  *
@@ -346,7 +346,7 @@ $.fn.media.swf = function(el, opts) {
 // map flv and mp3 files to the swf player by default
 $.fn.media.flv = $.fn.media.mp3 = function(el, opts) {
 	var src = opts.src;
-	var player = /\.mp3\b/i.test(src) ? $.fn.media.defaults.mp3Player : $.fn.media.defaults.flvPlayer;
+	var player = /\.mp3\b/i.test(src) ? opts.mp3Player : opts.flvPlayer;
 	var key = opts.flvKeyName;
 	src = encodeURIComponent(src);
 	opts.src = player;
