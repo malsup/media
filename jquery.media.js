@@ -432,13 +432,27 @@ function generate(el, opts, player) {
 				v = v.replace('http','https');
 			a.push(key + '="'+v+'" ');
 		}
-		a.push('></ob'+'ject'+'>');
+		a.push('>');
 		var p = ['<param name="' + (o.oUrl || 'src') +'" value="' + opts.src + '">'];
 		for (var key in opts.params)
 			p.push('<param name="'+ key +'" value="' + opts.params[key] + '">');
-		var o = document.createElement(a.join(''));
-		for (var i=0; i < p.length; i++)
-			o.appendChild(document.createElement(p[i]));
+		for (var i=0; i < p.length; i++){
+			a.push(p[i]);
+		}
+		a.push('</ob'+'ject'+'>');
+
+		var o = $('<div/>');
+		var a2 = a.join('');
+		o.html(a2);
+
+		//IE9
+		if($.browser.version =='9.0'){
+			$.fn.media.defaults.autoplay = 0;
+		}
+		//IE8
+		if($.browser.version =='8.0'){
+			$.fn.media.defaults.autoplay = 1;
+		}
 	}
 	else if (opts.standards) {
 		// Rewritten to be standards compliant by Richard Connamacher
