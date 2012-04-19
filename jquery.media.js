@@ -31,7 +31,7 @@
  * Thanks to Skye Giordano for several great suggestions!
  * Thanks to Richard Connamacher for excellent improvements to the non-IE behavior!
  */
-;(function($) {
+(function($) {
 
 var lameIE = $.browser.msie && $.browser.version < 9;
 
@@ -261,7 +261,7 @@ function getSettings(el, options) {
 	var meta = $.metadata ? $el.metadata() : $.meta ? $el.data() : {};
 	meta = meta || {};
 	var w = meta.width  || parseInt(((cls.match(/\bw:(\d+)/)||[])[1]||0)) || parseInt(((cls.match(/\bwidth:(\d+)/)||[])[1]||0));
-	var h = meta.height || parseInt(((cls.match(/\bh:(\d+)/)||[])[1]||0)) || parseInt(((cls.match(/\bheight:(\d+)/)||[])[1]||0))
+	var h = meta.height || parseInt(((cls.match(/\bh:(\d+)/)||[])[1]||0)) || parseInt(((cls.match(/\bheight:(\d+)/)||[])[1]||0));
 
 	if (w) meta.width	= w;
 	if (h) meta.height = h;
