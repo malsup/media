@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  * @author: M. Alsup
- * @version: 0.97 (20-MAY-2011)
+ * @version: 0.98 (27-MAR-2013)
  * @requires jQuery v1.1.2 or later
  * $Id: jquery.media.js 2460 2007-07-23 02:53:15Z malsup $
  *
@@ -33,7 +33,9 @@
  */
 ;(function($) {
 
-var lameIE = $.browser.msie && $.browser.version < 9;
+var mode = document.documentMode || 0;
+var msie = /MSIE/.test(navigator.userAgent);
+var lameIE = msie && (/MSIE (6|7|8)\.0/.test(navigator.userAgent) || mode < 9);
 
 /**
  * Chainable method for converting elements into rich media.
@@ -180,7 +182,7 @@ $.fn.media.defaults.players = {
 		name:		  'winmedia',
 		title:		  'Windows Media',
 		types:		  'asx,asf,avi,wma,wmv',
-		mimetype:	  $.browser.mozilla && isFirefoxWMPPluginInstalled() ? 'application/x-ms-wmp' : 'application/x-mplayer2',
+		mimetype:	  isFirefoxWMPPluginInstalled() ? 'application/x-ms-wmp' : 'application/x-mplayer2',
 		pluginspage:  'http://www.microsoft.com/Windows/MediaPlayer/',
 		autoplayAttr: 'autostart',
 		oUrl:		  'url',
@@ -213,7 +215,7 @@ $.fn.media.defaults.players = {
 // detection script for FF WMP plugin (http://www.therossman.org/experiments/wmp_play.html)
 // (hat tip to Mark Ross for this script)
 function isFirefoxWMPPluginInstalled() {
-	var plugs = navigator.plugins;
+	var plugs = navigator.plugins || [];
 	for (var i = 0; i < plugs.length; i++) {
 		var plugin = plugs[i];
 		if (plugin['filename'] == 'np-mswmp.dll')
@@ -444,7 +446,7 @@ function generate(el, opts, player) {
 		// Rewritten to be standards compliant by Richard Connamacher
 		var a = ['<object type="' + o.mimetype +'" width="' + opts.width + '" height="' + opts.height +'"'];
 		if (opts.src) a.push(' data="' + opts.src + '" ');
-		if ($.browser.msie) {
+		if (msie) {
 			for (var key in o.ieAttrs || {}) {
 				var v = o.ieAttrs[key];
 				if (key == 'codebase' && window.location.protocol == 'https:')
