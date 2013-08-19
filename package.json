@@ -1,0 +1,26 @@
+{
+    "name": "jquery-media",
+    "version": "0.9.2",
+    "title": "Lazy Load",
+    "author": {
+        "name": "Mike Alsup",
+        "url": "http://malsup.com/jquery/media/"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/mit-license.php"
+        }
+    ],
+    "dependencies": {
+        "jquery": "1"
+    },
+    "description": "The jQuery Media Plugin supports unobtrusive conversion of standard markup into rich media content",
+    "keywords": [
+        "media"
+    ],
+    "homepage": "http://malsup.com/jquery/media/",
+    "files": [
+        "jquery.media.js"
+    ]
+}
