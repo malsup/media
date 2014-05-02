@@ -8,6 +8,7 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  * @author: M. Alsup
+ * @author: jtnimoy (added Director DCR support in May, 2014)
  * @version: 0.99 (05-JUN-2013)
  * @requires jQuery v1.1.2 or later
  * $Id: jquery.media.js 2460 2007-07-23 02:53:15Z malsup $
@@ -24,7 +25,7 @@
  *	 Any types supported by the above players, such as:
  *	 Video: asf, avi, flv, mov, mpg, mpeg, mp4, qt, smil, swf, wmv, 3g2, 3gp
  *	 Audio: aif, aac, au, gsm, mid, midi, mov, mp3, m4a, snd, rm, wav, wma
- *	 Other: bmp, html, pdf, psd, qif, qtif, qti, tif, tiff, xaml
+ *	 Other: bmp, html, pdf, psd, qif, qtif, qti, tif, tiff, xaml, dcr
  *
  * Thanks to Mark Hicken and Brent Pedersen for helping me debug this on the Mac!
  * Thanks to Dan Rossi for numerous bug reports and code bits!
@@ -152,6 +153,7 @@ $.fn.media.defaults = {
 
 // Media Players; think twice before overriding
 $.fn.media.defaults.players = {
+
 	flash: {
 		name:		 'flash',
 		title:		 'Flash',
@@ -212,7 +214,12 @@ $.fn.media.defaults.players = {
 	silverlight: {
 		name:  'silverlight',
 		types: 'xaml'
+	},
+	director: {
+	        name: 'director',
+		types: 'dcr'
 	}
+	
 };
 
 //
@@ -428,6 +435,12 @@ function generate(el, opts, player) {
 		o.attr('src', opts.src);
 		o.css('backgroundColor', o.bgColor);
 	}
+	else if (player == 'director') {
+		o = $('<object' + ' width="' + opts.width + '" height="' + opts.height + '" >');
+		o.attr('data', opts.src);
+		o.attr('type', 'application/x-director');
+		o.css('backgroundColor', o.bgColor);
+	}
 	else if (player == 'img') {
 		o = $('<img>');
 		o.attr('src', opts.src);
@@ -497,7 +510,7 @@ function generate(el, opts, player) {
 	var cls = opts.cls ? (' class="' + opts.cls + '"') : '';
 	var $div = $('<div' + id + cls + '>');
 	$el.after($div).remove();
-	if (lameIE || player == 'iframe' || player == 'img')
+	if (lameIE || player == 'iframe' || player == 'img' || player == 'director')
 		$div.append(o);
 	else
 		$div.html(a.join(''));
